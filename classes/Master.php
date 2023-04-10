@@ -69,13 +69,11 @@ class Master extends DBConnection
 		if ($del) {
 			$resp['status'] = 'success';
 			$this->settings->set_flashdata('success', "Message has been deleted successfully.");
-
 		} else {
 			$resp['status'] = 'failed';
 			$resp['error'] = $this->conn->error;
 		}
 		return json_encode($resp);
-
 	}
 	function save_category()
 	{
@@ -180,7 +178,6 @@ class Master extends DBConnection
 		if ($del) {
 			$resp['status'] = 'success';
 			$this->settings->set_flashdata('success', "Service has been deleted successfully.");
-
 		} else {
 			$resp['status'] = 'failed';
 			$resp['error'] = $this->conn->error;
@@ -189,6 +186,20 @@ class Master extends DBConnection
 	}
 	function save_appointment()
 	{
+
+		if (!$_POST['sched_id']) {
+			$resp['status'] = 'failed';
+			$resp['msg'] = "Please Select Schedule";
+		}
+
+		$schedid = $_POST['sched_id'];
+		$email   = $_POST['email'];
+		$vcheck = $this->conn->query("SELECT * FROM `appointment_list` where sched_id = '{$schedid}' and email = '{$email}' ")->num_rows;
+		if ($vcheck >= 1) {
+			$resp['status'] = 'failed';
+			$resp['msg'] = "The appointment schedule already exist.";
+		}
+
 		if (empty($_POST['id'])) {
 			$prefix = "EEDFC-" . date("Ym");
 			$code = sprintf("%'.04d", 1);
@@ -234,7 +245,6 @@ class Master extends DBConnection
 					$resp['msg'] = "New Appointment Details has successfully added.</b>.";
 				else
 					$resp['msg'] = "Appointment Details has been updated successfully.";
-
 			} else {
 				$resp['status'] = 'failed';
 				$resp['msg'] = "An error occured.";
@@ -266,7 +276,6 @@ class Master extends DBConnection
 		if ($del) {
 			$resp['status'] = 'success';
 			$this->settings->set_flashdata('success', "Appointment Request status has successfully updated.");
-
 		} else {
 			$resp['status'] = 'failed';
 			$resp['error'] = $this->conn->error;

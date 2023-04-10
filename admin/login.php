@@ -54,8 +54,7 @@
     </div>
     <div class="col-5 h-100 bg-gradient">
       <div class="d-flex w-100 h-100 justify-content-center align-items-center">
-        <div class="card col-sm-12 col-md-6 col-lg-3 card-outline card-primary rounded-0 shadow"
-          style="background: #183837">
+        <div class="card col-sm-12 col-md-6 col-lg-3 card-outline card-primary rounded-0 shadow" style="background: #183837">
           <div class="card-header rounded-0" style="color:white">
             <h4 class="text-purle text-center"><b>Login for Admin</b></h4>
           </div>
@@ -102,7 +101,7 @@
   <script src="dist/js/adminlte.min.js"></script>
 
   <script>
-    $(document).ready(function () {
+    $(document).ready(function() {
       end_loader();
     })
   </script>
