@@ -56,7 +56,7 @@
       <div class="d-flex w-100 h-100 justify-content-center align-items-center">
         <div class="card col-sm-12 col-md-6 col-lg-3 card-outline card-primary rounded-0 shadow" style="background: #183837">
           <div class="card-header rounded-0" style="color:white">
-            <h4 class="text-purle text-center"><b>Login for Admin</b></h4>
+            <h4 class="text-purle text-center"><b>Login for Admin </b></h4>
           </div>
           <div class="card-body rounded-0">
             <form id="login-frm" action="" method="post">

@@ -199,7 +199,7 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `firstname`, `middlename`, `lastname`, `username`, `password`, `avatar`, `last_login`, `type`, `status`, `date_added`, `date_updated`) VALUES
-(1, 'Kelvin', NULL, 'Paa', 'admin', '0192023a7bbd73250516f069df18b500', 'uploads/admin.jpg', NULL, 1, 1, '2021-01-20 14:02:37', '2021-12-14 15:47:08');
+(1, 'Kelvin', NULL, 'Paa', 'admin', '1a1dc91c907325c69271ddf0c944bc72', 'uploads/admin.jpg', NULL, 1, 1, '2021-01-20 14:02:37', '2021-12-14 15:47:08');
 
 --
 -- Indexes for dumped tables
