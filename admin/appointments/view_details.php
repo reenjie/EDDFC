@@ -69,7 +69,9 @@ $service = (empty($service)) ? "N/A" : $service;
                                 </table>
                             </div>
                         </div>
-                        <div class="card mb-2 border border-secondary">
+                        <div class="row">
+                            <div class="col-md-6">
+                            <div class="card mb-2 border border-secondary">
                             <div class="card-body">
                          
                             <legend class="text-muted border-bottom">Schedule Information</legend>
@@ -89,6 +91,12 @@ $service = (empty($service)) ? "N/A" : $service;
                             
                             </div>
                         </div>
+                            </div>
+                            <div class="col-md-6" style="text-align:center">
+                                <img src="../<?php echo $img?>" style="width:200px" alt="">
+                            </div>
+                        </div>
+                      
                         <div class="row">
                             <div class="col-md-6">
                                 <fieldset>

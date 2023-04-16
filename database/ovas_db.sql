@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 10, 2023 at 02:14 PM
+-- Generation Time: Apr 16, 2023 at 02:15 AM
 -- Server version: 10.4.27-MariaDB
 -- PHP Version: 8.1.12
 
@@ -41,17 +41,10 @@ CREATE TABLE `appointment_list` (
   `service_ids` text DEFAULT NULL,
   `status` tinyint(4) NOT NULL DEFAULT 0,
   `sched_id` int(11) DEFAULT NULL,
+  `img` text DEFAULT NULL,
   `date_created` datetime NOT NULL DEFAULT current_timestamp(),
   `date_updated` datetime DEFAULT NULL ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data for table `appointment_list`
---
-
-INSERT INTO `appointment_list` (`id`, `code`, `schedule`, `owner_name`, `contact`, `email`, `address`, `category_id`, `breed`, `age`, `service_ids`, `status`, `sched_id`, `date_created`, `date_updated`) VALUES
-(1, 'EDDFC-2023010001', '2023-01-10', 'Lil sheesh', '0912345789', 'Shesh@gmail.com', 'Here City', 1, 'chiken', '5 mos. old', '3,1', 0, NULL, '2023-01-10 15:55:21', NULL),
-(2, 'EDDFC-2023010006', '2023-01-12', 'Aleng Marites', '09888754466', 'marites@gmail.com', 'Sample address', 2, 'chiken', '8 mos', '5,1', 1, NULL, '2023-01-12 16:27:54', '2022-01-04 17:17:55');
 
 -- --------------------------------------------------------
 
@@ -199,7 +192,7 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `firstname`, `middlename`, `lastname`, `username`, `password`, `avatar`, `last_login`, `type`, `status`, `date_added`, `date_updated`) VALUES
-(1, 'Kelvin', NULL, 'Paa', 'admin', '1a1dc91c907325c69271ddf0c944bc72', 'uploads/admin.jpg', NULL, 1, 1, '2021-01-20 14:02:37', '2021-12-14 15:47:08');
+(1, 'Kelvin', NULL, 'Paa', 'admin', '1a1dc91c907325c69271ddf0c944bc72', 'uploads/admin.jpg', NULL, 1, 1, '2021-01-20 14:02:37', '2023-04-15 21:27:31');
 
 --
 -- Indexes for dumped tables
@@ -256,7 +249,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `appointment_list`
 --
 ALTER TABLE `appointment_list`
-  MODIFY `id` int(30) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` int(30) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT for table `category_list`
@@ -274,7 +267,7 @@ ALTER TABLE `message_list`
 -- AUTO_INCREMENT for table `scheduler`
 --
 ALTER TABLE `scheduler`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `service_list`

@@ -96,6 +96,12 @@ $schedule = $_GET['schedule'];
                 </table>
             </div>
         </div>
+        <div class="card text-center">
+            <div class="card-body">
+               <h6 style="font-size:13px;text-transform:uppercase">Upload Pet ISSUE | image</h6>
+               <input type="file" name="img" accept="image/*" class="form-control" required>
+            </div>
+        </div>
         <div class="row">
             <div class="col-md-6">
                 <fieldset>

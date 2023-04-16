@@ -225,10 +225,26 @@ class Master extends DBConnection
 				$data .= " `{$k}`='{$v}' ";
 			}
 		}
+
+
+
+		if(isset($_FILES['img']) && $_FILES['img']['tmp_name'] != ''){
+			$fname = 'uploads/'.time().'-'.$_FILES['img']['name'];
+			$dir_path = base_app . $fname;
+			$upload = $_FILES['img']['tmp_name'];
+			$uploaded_img = move_uploaded_file($upload, $dir_path);
+			if ($uploaded_img) {
+				$resp['msg'] = "Image uploaded successfully.";
+			} else {
+				$resp['msg'] = "Image failed to upload due to unknown reason.";
+			}
+		}
+
+
 		if (empty($id)) {
-			$sql = "INSERT INTO `appointment_list` set {$data} ";
+			$sql = "INSERT INTO `appointment_list` set {$data} ,`img` = '{$fname}' ";
 		} else {
-			$sql = "UPDATE `appointment_list` set {$data} where id = '{$id}' ";
+			$sql = "UPDATE `appointment_list` set {$data} ,`img` = '{$fname}' where id = '{$id}' ";
 		}
 		$slot_taken = $this->conn->query("SELECT * FROM `appointment_list` where date(schedule) = '{$schedule}' and `status` in (0,1)")->num_rows;
 		if ($slot_taken >= $this->settings->info('max_appointment')) {
