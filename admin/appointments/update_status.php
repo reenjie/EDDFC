@@ -1,6 +1,10 @@
 <div class="container-fluid">
     <form action="" id="update-form">
         <input type="hidden" name="id" value="<?= isset($_GET['id']) ? $_GET['id'] : '' ?>">
+        <input type="hidden" name="email" value="<?= isset($_GET['email']) ? $_GET['email'] : '' ?>">
+        <input type="hidden" name="name" value="<?= isset($_GET['name']) ? $_GET['name'] : '' ?>">
+        <input type="hidden" name="schedule" value="<?= isset($_GET['schedule']) ? $_GET['schedule'] : '' ?>">
+        
             <div class="form-group">
                 <small class="text-muted ">Status</small>
                 <select name="status" id="status" class="form-control form-control-sm form-control-border" required>

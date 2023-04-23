@@ -213,7 +213,7 @@ $service = (empty($service)) ? "N/A" : $service;
             _conf("Are you sure to delete <b><?= $code ?>\'s</b> from appointment permanently?", "delete_appointment", ['<?= $id ?>'])
         })
         $('#update_status').click(function () {
-            uni_modal("Update Status", "appointments/update_status.php?id=<?= $id ?>&status=<?= $status ?>")
+            uni_modal("Update Status", "appointments/update_status.php?id=<?= $id ?>&status=<?= $status ?>&email=<?= $email?>&name=<?= $owner_name?>&schedule=<?= $sched_id?>")
         })
     })
     function delete_appointment($id) {

@@ -1,5 +1,11 @@
 <?php
 require_once('../config.php');
+require_once '../vendor/autoload.php';
+use League\OAuth2\Client\Provider\Google;
+use PHPMailer\PHPMailer\Exception;
+use PHPMailer\PHPMailer\OAuth;
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\SMTP;
 class Master extends DBConnection
 {
 	private $settings;
@@ -288,6 +294,144 @@ class Master extends DBConnection
 	function update_appointment_status()
 	{
 		extract($_POST);
+		$htmlcode = '';
+		$subject = '';
+		$doa = '';
+		$time = '';
+		$sched = $this->conn->query("SELECT * FROM `scheduler` where id ={$schedule} ");
+		foreach($sched as $row){
+			$doa = $row['schedule'];
+			$time = date('h:i a',strtotime($row['timestart'])).' - '.date('h:i a',strtotime($row['timeend']));
+		}	
+		if ($status == 1 || $status == 2){
+			if ($status == 1){
+				$htmlcode = '
+				<h4>
+					Your appointment at EDDFC ( Early disease detection for chickens ) has been  <span style="color:green">Approved</span>.  
+				</h4>
+
+				<br/>
+
+				Appointment Schedule :
+				<br/>
+				Date : '.date('F j,Y',strtotime($doa)).'
+				<br/>
+
+				Time : '.$time.'
+                   
+				';
+				$subject = "APPOINTMENT APPROVED";
+			}
+			
+			if($status == 2){
+				$htmlcode = '
+				<h4>
+					Your appointment at EDDFC ( Early disease detection for chickens ) has been <span style="color:red">Cancelled</span>. 
+				</h4>
+				';
+				$subject = "APPOINTMENT CANCELLED";
+			}
+$mail = new PHPMailer(true);
+$mail->isSMTP(); //comment this
+//$mail->Host =localhost;  // uncomment
+$mail->SMTPDebug = 0; // 0 = off (for production use) - 1 = client messages - 2 = client and server messages
+$mail->Host = "smtp.gmail.com"; // use $mail->Host = gethostbyname('smtp.gmail.com'); // if your network does not support SMTP over IPv6
+$mail->Port = 465; // TLS only
+$mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS; 
+$mail->SMTPAuth = true;
+$mail->AuthType = 'XOAUTH2';
+$provider = new Google([
+    'clientId'      => '633894388009-dq823nvhl97u0okjg7nascsdj451atdo.apps.googleusercontent.com',
+    'clientSecret'  => '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'
+]);
+$mail->setOAuth(
+    new OAuth(
+        [
+            'provider'          => $provider,
+            'clientId'          => '633894388009-dq823nvhl97u0okjg7nascsdj451atdo.apps.googleusercontent.com',
+            'clientSecret'      => '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',
+            'refreshToken'      => '1//0e35DqS4PoQcQCgYIARAAGA4SNwF-L9IrNMkS7-eOy0BfmD7vJGfEokDDLgKRbJemH82uz6P9_k6EbfhBVvFi4YW0-KcB85_hKew',
+            'userName'          => 'capstone0223@gmail.com',
+        ]
+    )
+);
+
+
+    $mail->setFrom('capstone0223@gmail.com','EDDFC');
+    $mail->addAddress($email, $name);
+    $mail->Subject = $subject;
+    $mail->CharSet = PHPMailer::CHARSET_UTF8;
+    $mail->msgHTML('
+	<!DOCTYPE html>
+           <html lang="en">
+           
+           <head>
+               <meta charset="UTF-8">
+               <meta name="viewport" content="width=device-width, initial-scale=1.0">
+               <meta http-equiv="X-UA-Compatible" content="ie=edge">
+               <title></title>
+           </head>
+           
+           <body >
+           
+           
+                   <h4>
+                   Dear User,
+                   <br/>
+	
+					'.$htmlcode.'
+			
+				   <br/>	<br/>
+                   
+                   EDDFC Team
+                   
+                   
+                   
+                   
+                   
+                   
+                   
+                   </h4>
+           
+           
+                       
+                      
+                
+                
+                   <h5>
+                    
+                      EDDFC | All rights Reserved &middot; 2022
+           
+                   </h5>
+                   <p><br><br><br></p>
+           
+           </body>
+           
+           </html>
+	');
+
+    $mail->AltBody = 'HTML messaging not supported'; // If html emails is not supported by the receiver, show this body
+    // $mail->addAttachment('images/phpmailer_mini.png'); //Attach an image file
+    $mail->SMTPOptions = array(
+        'ssl' => array(
+            'verify_peer' => false,
+            'verify_peer_name' => false,
+            'allow_self_signed' => true
+        )
+    );
+    if (!$mail->send())
+    {
+        echo "Error" . $mail->ErrorInfo;
+    }
+    else
+    {
+        
+        
+    }
+
+
+		}
+		
 		$del = $this->conn->query("UPDATE `appointment_list` set `status` = '{$status}' where id = '{$id}'");
 		if ($del) {
 			$resp['status'] = 'success';
